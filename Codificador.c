@@ -4,7 +4,7 @@
 #define Tamano 1024
 
 void cifradociclico(char mensaje[],int clave);
-
+void morse(char mensaje[]);
 int main()
 {
 int clave;
@@ -19,6 +19,7 @@ frase= (char*)malloc(largo* sizeof(char));
         scanf("%d",&clave);
 	printf("\n");
 	cifradociclico(frase,clave);
+	morse(frase);
 	return 0;
 }
 /* Implementacion de cifrado ciclico
@@ -66,4 +67,16 @@ segun la llave que se ingrese*/
 	}
 	printf("El codigo cifrado de llave %d: ",clave);
         printf("\n%s\n",salida);
+}
+
+// Funcion codigo morse
+void morse(mensaje[])
+{
+	char alfM[26]={'A','B','C','D','E','F','G','H',
+	'I','J','K','L','M','N','O','P','Q','R','S',
+	'T','U','V','W','X','Y','Z'};
+	char alfm[26]={'a','b','c','d','e','f','g','h',
+	'i','j','k','l','m','n','o','p','q','r','s',
+	't','u','v','w','x','y','z'};
+	char cod[26]={}
 }
