@@ -70,13 +70,47 @@ segun la llave que se ingrese*/
 }
 
 // Funcion codigo morse
-void morse(mensaje[])
+void morse(char mensaje1[])
 {
-	char alfM[26]={'A','B','C','D','E','F','G','H',
-	'I','J','K','L','M','N','O','P','Q','R','S',
-	'T','U','V','W','X','Y','Z'};
-	char alfm[26]={'a','b','c','d','e','f','g','h',
-	'i','j','k','l','m','n','o','p','q','r','s',
-	't','u','v','w','x','y','z'};
-	char cod[26]={}
+	int i,j;
+	char alfM[27]={'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' '};
+	char alfm[27]={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',' '};
+	char cod[27][6]={{"._"},{"_..."},{"_._."},{'_..'},{'.'},{'.._.'},{'__.'},{'....'},{'..'},{'.___'},{'_._'},{'._..'},{'__'},{'_.'},{'___'},{'.__.'},{'__._'},{'._.'},{'...'},{'_'},{'.._'},{'..._'},{'.__'},{'_.._'},{'_.__'},{'__..'},{'//'}};
+	char nuevo[1024];
+	for(i=0;i<mensaje1[i];i++)
+	{
+		if(mensaje1[i]!= '\0')
+		{
+			if(mensaje1[i]<=90 && mensaje1[i]>64 )
+			{
+				for(j=0; j<27;j++)
+				{
+					if(toascii(mensaje1[i])==toascii(alfM[j]))
+					{
+						nuevo[i]=cod[j];
+					}
+				}
+			}
+			else if(mensaje1[i]>96 && mensaje1[i]<=122)
+			{
+				for(j=0; j<27;j++)
+				{
+					if(toascii(mensaje1[i])==toascii(alfm[j]))
+					{
+						nuevo[i]=cod[j];
+					}
+				}
+			}
+			else 
+			{
+					nuevo[i]=cod[j];
+			}
+		}
+		else
+		{
+			nuevo[i]=mensaje1[j];
+		}
+	}
+	printf("El codigo Morse es: ");
+        printf("\n%s\n",nuevo);
 }
