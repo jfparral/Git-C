@@ -5,21 +5,29 @@
 
 void cifradociclico(char mensaje[],int clave);
 void morse(char mensaje[]);
-int main()
+int main(int argc, char *argv[])
 {
 int clave;
 char *frase;
 size_t largo= Tamano;
 size_t oracion;
 frase= (char*)malloc(largo* sizeof(char));
-	printf("Bienvenido al Cifrador\n");
-	printf("Por favor ingrese la una frase: ");
-	oracion=getline(&frase,&largo,stdin);
-	printf("Por favor ingrese la clave para cifrar: ");
-        scanf("%d",&clave);
-	printf("\n");
-	cifradociclico(frase,clave);
-	morse(frase);
+	if(argc==1)
+	{
+		printf("Bienvenido al Cifrador\n");
+		printf("Por favor ingrese una frase: ");
+		oracion=getline(&frase,&largo,stdin);
+		printf("Por favor ingrese la clave para cifrar: ");
+		scanf("%d",&clave);
+		printf("\n");
+		cifradociclico(frase,clave);
+		printf("\n");
+	}
+	else
+	{
+		cifradociclico(argv[argc-1],atoi(argv[argc-2]));
+		printf("\n");
+	}
 	return 0;
 }
 /* Implementacion de cifrado ciclico
@@ -28,7 +36,7 @@ segun la llave que se ingrese*/
  void cifradociclico(char mensaje[], int clave)
  {
 	int i=0;
-	char salida[Tamano];
+	char salida[Tamano],salidamorse[Tamano];
 	for(i=0;i<=Tamano;i++)
 	{
 		if(mensaje[i]!= '\0')
@@ -66,51 +74,37 @@ segun la llave que se ingrese*/
 		}
 	}
 	printf("El codigo cifrado de llave %d: ",clave);
-        printf("\n%s\n",salida);
+    printf("%s\n",salida);
+	strcpy(salidamorse,salida);
+    printf("Codigo cifrado en morse: ");
+	morse(salidamorse);
+	printf("\n");
 }
 
 // Funcion codigo morse
-void morse(char mensaje1[])
+void morse(char mensaje[])
 {
 	int i,j;
 	char alfM[27]={'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' '};
 	char alfm[27]={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',' '};
-	char cod[27][6]={{"._"},{"_..."},{"_._."},{'_..'},{'.'},{'.._.'},{'__.'},{'....'},{'..'},{'.___'},{'_._'},{'._..'},{'__'},{'_.'},{'___'},{'.__.'},{'__._'},{'._.'},{'...'},{'_'},{'.._'},{'..._'},{'.__'},{'_.._'},{'_.__'},{'__..'},{'//'}};
-	char nuevo[1024];
-	for(i=0;i<mensaje1[i];i++)
+	char codigo[37][6] = {{".- "},{"-... "},{"-.-. "},{"-.. "},{". "},{"..-. "},{"--. "},{".... "},{".. "},{".--- "},
+	{"-.- "},{".-.. "},{"-- "},{"-. "},{"--- "},{".--. "},{"--.- "},{".-. "},{"... "},{"- "},{"..- "},{"...- "},{".-- "},
+	{"-..- "},{"-.-- "},{"--.. "},{"/ "}}; 
+	for(i=0;i<mensaje[i];i++)
 	{
-		if(mensaje1[i]!= '\0')
+		for(j=0; j<27;j++)
 		{
-			if(mensaje1[i]<=90 && mensaje1[i]>64 )
+			if(mensaje[i]==alfM[j])
 			{
-				for(j=0; j<27;j++)
+				printf("%s",codigo[j]);
+			}
+			else
+			{
+				if(mensaje[i]==alfm[j])
 				{
-					if(toascii(mensaje1[i])==toascii(alfM[j]))
-					{
-						nuevo[i]=cod[j];
-					}
+					printf("%s",codigo[j]);
 				}
 			}
-			else if(mensaje1[i]>96 && mensaje1[i]<=122)
-			{
-				for(j=0; j<27;j++)
-				{
-					if(toascii(mensaje1[i])==toascii(alfm[j]))
-					{
-						nuevo[i]=cod[j];
-					}
-				}
-			}
-			else 
-			{
-					nuevo[i]=cod[j];
-			}
-		}
-		else
-		{
-			nuevo[i]=mensaje1[j];
 		}
 	}
-	printf("El codigo Morse es: ");
-        printf("\n%s\n",nuevo);
 }
